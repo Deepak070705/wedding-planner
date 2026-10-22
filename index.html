@@ -1,14 +1,246 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Plan weddings and events: vendors, budget, tasks and guest RSVPs in one place." />
-  <title>Shaadi Sathi - Wedding and Event Planner</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Figtree:wght@400;600&display=swap" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Shaadi Sathi - Wedding and Event Planner</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Figtree:wght@400;600&display=swap">
+<style>
+:root{--bg:#fbf6f8;--card:#fff;--ink:#2a1020;--mute:#7a6070;--line:#ecdde4;--main:#6b1d45;--on:#fff;--gold:#e0a21b;--ok:#2e7d4f;--bad:#b3261e;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1a0e15;--card:#26151f;--ink:#f6e9ef;--mute:#b79aa8;--line:#3d2431;--main:#e58bb4;--on:#2a1020;--gold:#f0b73a;--ok:#6fcf97;--bad:#f2867f}}
+:root[data-theme="dark"]{--bg:#1a0e15;--card:#26151f;--ink:#f6e9ef;--mute:#b79aa8;--line:#3d2431;--main:#e58bb4;--on:#2a1020;--gold:#f0b73a;--ok:#6fcf97;--bad:#f2867f}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Figtree,system-ui,sans-serif}
+h1,h2,h3{font-family:Gloock,Georgia,serif;font-weight:400;margin:0 0 .5rem;line-height:1.1}
+h1{font-size:clamp(2.4rem,8vw,4.6rem)}h2{font-size:1.7rem}h3{font-size:1.15rem}
+button,input,select{font:inherit;color:inherit}
+input,select{width:100%;padding:.65rem .75rem;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+label{display:block;font-size:.85rem;color:var(--mute);margin-bottom:.2rem}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.btn{background:var(--main);color:var(--on);border:0;border-radius:10px;padding:.65rem 1.1rem;cursor:pointer;font-weight:600;transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn.alt{background:transparent;color:var(--main);border:1px solid var(--main)}
+.btn.gold{background:var(--gold);color:#2a1020}
+.btn.sm{padding:.3rem .65rem;font-size:.85rem}
+.wrap{max-width:1000px;margin:0 auto;padding:1rem}
+/* Landing */
+.land{background:radial-gradient(circle at 80% 10%,#9b2f66 0,transparent 45%),linear-gradient(165deg,#3f0c2a,#6b1d45);color:#fff3f8;min-height:100vh}
+.garland{height:54px;background:
+radial-gradient(circle at 50% 38%,#f2b21e 0 10px,transparent 11px) 0 0/36px 54px repeat-x,
+radial-gradient(circle at 50% 62%,#e8590c 0 10px,transparent 11px) 18px 0/36px 54px repeat-x}
+.hero{display:grid;gap:2rem;padding:2rem 0 3rem;grid-template-columns:1.2fr 1fr;align-items:center}
+.hero p{max-width:44ch;color:#f1d3e2;font-size:1.1rem}
+.login{background:var(--card);color:var(--ink);border-radius:16px;padding:1.3rem;display:grid;gap:.8rem;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.login .two{display:flex;gap:.5rem}.login .two .btn{flex:1}
+.feat{display:grid;gap:.8rem;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));padding-bottom:3rem}
+.feat div{border:1px solid rgba(255,243,248,.25);border-radius:12px;padding:.8rem}
+.feat b{display:block;font-family:Gloock,Georgia,serif;font-weight:400;font-size:1.05rem;color:#f2b21e}
+.feat small{color:#f1d3e2}
+.mode{font-size:.8rem;color:var(--mute)}
+@media(max-width:760px){.hero{grid-template-columns:1fr}}
+/* App */
+header.top{background:var(--main);color:var(--on);position:sticky;top:0;z-index:5}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-wrap:wrap;padding:.6rem 1rem}
+header.top b{font-family:Gloock,Georgia,serif;font-size:1.35rem;font-weight:400}
+nav{display:flex;gap:.3rem;overflow-x:auto;padding:.5rem 0}
+nav button{background:transparent;border:0;border-bottom:3px solid transparent;padding:.45rem .9rem;cursor:pointer;color:var(--mute);white-space:nowrap}
+nav button[aria-selected=true]{color:var(--main);border-color:var(--gold);font-weight:600}
+.count{background:linear-gradient(135deg,#4a0f31,#8a2a5b);color:#fff3f8;border-radius:18px;padding:1.4rem;margin-bottom:1rem;position:relative;overflow:hidden}
+.count::before{content:"";position:absolute;inset:0 0 auto 0;height:54px;transform:scaleY(.55);transform-origin:top;background:
+radial-gradient(circle at 50% 38%,#f2b21e 0 10px,transparent 11px) 0 0/36px 54px repeat-x,
+radial-gradient(circle at 50% 62%,#e8590c 0 10px,transparent 11px) 18px 0/36px 54px repeat-x}
+.count h2{margin-top:1.6rem;font-size:2rem}
+.units{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:.8rem}
+.units div{background:rgba(255,255,255,.12);border-radius:12px;padding:.5rem .9rem;min-width:70px;text-align:center}
+.units b{display:block;font-family:Gloock,Georgia,serif;font-weight:400;font-size:1.9rem;color:#f2b21e}
+.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1rem}
+.stat{font-family:Gloock,Georgia,serif;font-size:1.8rem;color:var(--main)}
+.row{display:flex;gap:.5rem;flex-wrap:wrap;align-items:end;margin-bottom:1rem}
+.row>div{flex:1 1 140px}
+.list{list-style:none;margin:0;padding:0}
+.list li{display:flex;justify-content:space-between;align-items:center;gap:.5rem;padding:.6rem 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.done span{text-decoration:line-through;color:var(--mute)}
+.tag{font-size:.8rem;padding:.1rem .55rem;border-radius:99px;border:1px solid var(--line);color:var(--mute)}
+.yes{color:var(--ok);border-color:var(--ok)}.no{color:var(--bad);border-color:var(--bad)}
+.bar{height:12px;background:var(--line);border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),#e8590c)}
+.scroll{overflow-x:auto}table{width:100%;border-collapse:collapse}td,th{text-align:left;padding:.55rem;border-bottom:1px solid var(--line)}
+.empty{color:var(--mute);padding:.6rem 0}
+.hidden{display:none}
+dialog{border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);max-width:420px;width:92%}
+#toast{position:fixed;left:50%;bottom:calc(1rem + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:.6rem 1rem;border-radius:10px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:20}
+#toast.show{opacity:1}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
 </head>
 <body>
-  <div id="root"></div>
-  <script type="module" src="/src/main.jsx"></script>
+
+<section id="auth" class="land">
+  <div class="garland"></div>
+  <div class="wrap">
+    <div class="hero">
+      <div>
+        <h1>Your big day, planned in one place.</h1>
+        <p>Find vendors, track your budget, tick off tasks and collect RSVPs. No more notebooks and spreadsheets.</p>
+      </div>
+      <div class="login">
+        <h3>Start planning</h3><p class="mode">Type your name and go straight in.</p>
+        <div><label for="un">Your name</label><input id="un" autocomplete="name" maxlength="40"></div>
+        <div class="two"><button class="btn" id="login">Enter</button></div>
+        <span class="mode" id="mode"></span>
+      </div>
+    </div>
+    <div class="feat">
+      <div><b>Vendors</b><small>Venue, food, photo, decor</small></div>
+      <div><b>Budget</b><small>Planned vs paid</small></div>
+      <div><b>Tasks</b><small>Deadlines and checklist</small></div>
+      <div><b>Guests</b><small>RSVP Yes or No</small></div>
+      <div><b>Countdown</b><small>Days to your event</small></div>
+    </div>
+  </div>
+</section>
+
+<section id="app" class="hidden">
+  <header class="top"><div class="wrap"><b>Shaadi Sathi</b><span><span id="hi"></span> <button class="btn alt sm" id="out" style="color:var(--on);border-color:var(--on)">Exit</button></span></div></header>
+  <div class="wrap">
+    <nav role="tablist" id="tabs"></nav>
+    <main id="view"></main>
+  </div>
+</section>
+
+<dialog id="dlg">
+  <h3 id="dt">Request quotation</h3>
+  <div style="display:grid;gap:.6rem">
+    <div><label for="qn">Your message</label><input id="qn" placeholder="e.g. Need 200 guests on 20 Feb" maxlength="150"></div>
+    <div style="display:flex;gap:.5rem;justify-content:flex-end"><button class="btn alt" id="qc">Cancel</button><button class="btn" id="qs">Send request</button></div>
+  </div>
+</dialog>
+<div id="toast" role="status"></div>
+
+<script>
+var API=false,TK="",NAME="",TAB="Dashboard",QV="";
+var C={events:[],expenses:[],tasks:[],guests:[],quotes:[]};
+var VENDORS=[
+{name:"Royal Palace Banquet",category:"Venue",price:"from Rs 1,50,000"},{name:"Gulab Catering",category:"Catering",price:"Rs 700 per plate"},
+{name:"Candid Frames Studio",category:"Photography",price:"from Rs 45,000"},{name:"Phool Mahal Decor",category:"Decoration",price:"from Rs 60,000"},
+{name:"Noor Bridal Makeup",category:"Makeup",price:"from Rs 15,000"},{name:"DJ Beatbox",category:"Entertainment",price:"from Rs 25,000"}];
+var $=function(i){return document.getElementById(i)};
+function ls(k,v){try{if(v===undefined)return localStorage.getItem(k)||"";if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v)}catch(e){return ""}}
+function toast(m){var t=$("toast");t.textContent=m;t.className="show";setTimeout(function(){t.className=""},3500)}
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function rs(n){return "Rs "+Number(n||0).toLocaleString("en-IN")}
+function day(d){return d?String(d).slice(0,10):""}
+var NAMERE=/^[A-Za-z\u0900-\u097F][A-Za-z\u0900-\u097F .'-]{1,39}$/,MAILRE=/^[^\s@]+@[^\s@]+\.[A-Za-z]{2,}$/;
+function today(){var d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+function junk(s){return /(.)\1{3,}/.test(s)||!/[A-Za-z\u0900-\u097F]{2}/.test(s)}
+function chkName(s,w){s=s.trim();return(!NAMERE.test(s)||junk(s))?"Enter a real "+w+" (letters only, 2 to 40 characters)":""}
+function chkText(s,w,min,max){s=s.trim();if(s.length<min||s.length>max)return "The "+w+" must be "+min+" to "+max+" characters";return junk(s)?"Enter a meaningful "+w+" (no random letters)":""}
+function chkNum(v,w,min,max){if(v===""||isNaN(v))return "Enter the "+w;v=Number(v);return(v<min||v>max)?"The "+w+" must be between "+rs(min)+" and "+rs(max):""}
+function chkDate(d,w,must){if(!d)return must?"Choose the "+w:"";if(d<today())return "The "+w+" cannot be in the past";return d>"2100-01-01"?"Enter a valid "+w:""}
+function fail(m){if(m){toast(m);return true}return false}
+
+/* ---------- data layer: MySQL API if backend runs, else browser demo ---------- */
+async function call(m,p,b){
+  var r=await fetch("/api"+p,{method:m,headers:{"Content-Type":"application/json",Authorization:"Bearer "+TK},body:b?JSON.stringify(b):undefined});
+  var j=await r.json();if(!r.ok)throw new Error(j.error||"Something went wrong");return j}
+async function sync(){
+  if(API){for(var c in C)C[c]=await call("GET","/"+c)}
+  render()}
+async function add(c,o){if(API)await call("POST","/"+c,o);else{o.id=Date.now()+Math.random();C[c].push(o);ls("ss_local",JSON.stringify(C))}await sync()}
+async function upd(c,id,o){if(API)await call("PATCH","/"+c+"/"+id,o);else{Object.assign(C[c].find(function(x){return x.id==id}),o);ls("ss_local",JSON.stringify(C))}await sync()}
+async function del(c,id){if(API)await call("DELETE","/"+c+"/"+id);else{C[c]=C[c].filter(function(x){return x.id!=id});ls("ss_local",JSON.stringify(C))}await sync()}
+async function reset(){if(API)await call("DELETE","/reset");else{for(var c in C)C[c]=[];ls("ss_local",JSON.stringify(C))}await sync()}
+
+/* ---------- login ---------- */
+function show(){var on=!!NAME&&(!API||!!TK);$("auth").className=on?"land hidden":"land";$("app").className=on?"":"hidden";
+  $("mode").textContent=API?"Connected to MySQL backend.":"Demo mode: data is saved in this browser only.";
+  if(on){$("hi").textContent="Hi, "+NAME;render()}}
+async function enter(){
+  var n=$("un").value.trim();
+  if(fail(chkName(n,"name")))return;
+  NAME=n;ls("ss_name",NAME);await sync();show()}
+$("un").onkeydown=function(e){if(e.key==="Enter")enter()};
+$("login").onclick=function(){enter()};
+$("out").onclick=function(){NAME="";TK="";ls("ss_name",null);ls("ss_tk",null);show()};
+
+/* ---------- views ---------- */
+var TABS=["Dashboard","Vendors","Budget","Tasks","Guests"];
+function render(){
+  $("tabs").innerHTML=TABS.map(function(t){return '<button role="tab" aria-selected="'+(t===TAB)+'" data-t="'+t+'">'+t+'</button>'}).join("");
+  $("view").innerHTML={Dashboard:vDash,Vendors:vVend,Budget:vBud,Tasks:vTask,Guests:vGuest}[TAB]();var d1=$("ed"),d2=$("td");if(d1)d1.min=today();if(d2)d2.min=today();tick()}
+$("tabs").onclick=function(e){var t=e.target.getAttribute("data-t");if(t){TAB=t;render()}};
+
+function tick(){var el=$("cd");if(!el)return;var e=C.events[0],ms=new Date(day(e.date)+"T00:00:00")-new Date();
+  if(ms<0){el.innerHTML="<p>The event date has passed. Congratulations!</p>";return}
+  var u=[["Days",Math.floor(ms/864e5)],["Hours",Math.floor(ms/36e5)%24],["Min",Math.floor(ms/6e4)%60],["Sec",Math.floor(ms/1e3)%60]];
+  el.innerHTML=u.map(function(x){return '<div><b>'+x[1]+'</b>'+x[0]+'</div>'}).join("")}
+setInterval(tick,1000);
+
+function vDash(){
+  var e=C.events[0];
+  if(!e)return '<h2>Create your event</h2><div class="card"><div class="row"><div><label for="en">Event name</label><input id="en" placeholder="Riya and Aman Wedding" maxlength="60"></div>'+
+  '<div><label for="et">Event type</label><select id="et"><option>Wedding</option><option>Engagement</option><option>Birthday</option><option>Corporate</option></select></div></div>'+
+  '<div class="row"><div><label for="ed">Date</label><input id="ed" type="date"></div><div><label for="el">Location</label><input id="el" placeholder="Jaipur" maxlength="50"></div>'+
+  '<div><label for="eb">Total budget (Rs)</label><input id="eb" type="number" min="0"></div></div><button class="btn" data-a="mkev">Create event</button></div>';
+  var paid=C.expenses.reduce(function(a,x){return a+Number(x.paid)},0),done=C.tasks.filter(function(t){return t.done}).length,yes=C.guests.filter(function(g){return g.rsvp==="Yes"}).length;
+  return '<div class="count"><h2>'+esc(e.name)+'</h2><div>'+esc(e.type)+(e.location?' in '+esc(e.location):'')+(e.date?' on '+day(e.date):'')+'</div>'+(e.date?'<div class="units" id="cd"></div>':'')+'</div>'+
+  '<div class="grid"><div class="card"><div class="stat">'+rs(e.budget-paid)+'</div>Budget left of '+rs(e.budget)+'</div>'+
+  '<div class="card"><div class="stat">'+done+'/'+C.tasks.length+'</div>Tasks done</div>'+
+  '<div class="card"><div class="stat">'+yes+'/'+C.guests.length+'</div>Guests confirmed</div>'+
+  '<div class="card"><div class="stat">'+C.quotes.length+'</div>Quotation requests</div></div>'+
+  '<h3 style="margin-top:1.5rem">Vendor requests</h3>'+(C.quotes.length?'<ul class="list">'+C.quotes.map(function(q){return '<li><span>'+esc(q.vendor)+'<br><small class="empty">'+esc(q.message)+'</small></span><span class="tag">'+esc(q.status)+'</span></li>'}).join("")+'</ul>':'<p class="empty">No requests yet. Open Vendors and request a quotation.</p>')+
+  '<p><button class="btn alt sm" data-a="rmev">Delete event and start again</button></p>'}
+
+function vVend(){return '<h2>Vendor directory</h2><div class="grid">'+VENDORS.map(function(v,i){return '<div class="card"><span class="tag">'+esc(v.category)+'</span><h3 style="margin-top:.5rem">'+esc(v.name)+'</h3><p class="empty">'+esc(v.price)+'</p><button class="btn gold sm" data-a="quote" data-i="'+i+'">Request quotation</button></div>'}).join("")+'</div>'}
+
+function vBud(){
+  var e=C.events[0];if(!e)return '<p class="empty">Create an event on the Dashboard first.</p>';
+  var plan=0,paid=0;C.expenses.forEach(function(x){plan+=Number(x.planned);paid+=Number(x.paid)});
+  var pct=Number(e.budget)?Math.min(100,paid/e.budget*100):0;
+  return '<h2>Budget tracker</h2><div class="grid"><div class="card"><div class="stat">'+rs(plan)+'</div>Planned</div><div class="card"><div class="stat">'+rs(paid)+'</div>Paid</div><div class="card"><div class="stat">'+rs(e.budget-paid)+'</div>Remaining</div></div>'+
+  '<div class="bar" style="margin:1rem 0" role="img" aria-label="Budget used '+Math.round(pct)+' percent"><i style="width:'+pct+'%"></i></div>'+
+  '<div class="card"><div class="row"><div><label for="xc">Category</label><select id="xc"><option>Venue</option><option>Catering</option><option>Photography</option><option>Decoration</option><option>Makeup</option><option>Entertainment</option><option>Other</option></select></div>'+
+  '<div><label for="xp">Planned (Rs)</label><input id="xp" type="number" min="0"></div><div><label for="xa">Paid (Rs)</label><input id="xa" type="number" min="0"></div><div><button class="btn" data-a="addx">Add expense</button></div></div></div>'+
+  (C.expenses.length?'<div class="scroll"><table><tr><th>Category</th><th>Planned</th><th>Paid</th><th></th></tr>'+C.expenses.map(function(x){return '<tr><td>'+esc(x.category)+'</td><td>'+rs(x.planned)+'</td><td>'+rs(x.paid)+'</td><td><button class="btn alt sm" data-a="delx" data-id="'+x.id+'">Remove</button></td></tr>'}).join("")+'</table></div>':'<p class="empty">No expenses yet. Add your first one above.</p>')}
+
+function vTask(){return '<h2>Task checklist</h2><div class="row"><div><label for="tn">Task</label><input id="tn" placeholder="Book the band" maxlength="80"></div><div><label for="td">Deadline</label><input id="td" type="date"></div><div><button class="btn" data-a="addt">Add task</button></div></div>'+
+  (C.tasks.length?'<ul class="list">'+C.tasks.map(function(t){return '<li class="'+(t.done?'done':'')+'"><label style="display:flex;gap:.6rem;align-items:center;margin:0;color:var(--ink)"><input type="checkbox" style="width:auto" data-a="tg" data-id="'+t.id+'" '+(t.done?'checked':'')+'><span>'+esc(t.title)+(t.deadline?' <small class="empty">('+day(t.deadline)+')</small>':'')+'</span></label><button class="btn alt sm" data-a="delt" data-id="'+t.id+'">Remove</button></li>'}).join("")+'</ul>':'<p class="empty">No tasks yet. Add one above.</p>')}
+
+function vGuest(){return '<h2>Guests and RSVP</h2><div class="row"><div><label for="gn">Guest name</label><input id="gn" maxlength="40"></div><div><button class="btn" data-a="addg">Add guest</button></div></div>'+
+  (C.guests.length?'<ul class="list">'+C.guests.map(function(g){return '<li><span>'+esc(g.name)+' <span class="tag '+(g.rsvp==="Yes"?'yes':g.rsvp==="No"?'no':'')+'">'+esc(g.rsvp)+'</span></span><span><button class="btn alt sm" data-a="rsvp" data-id="'+g.id+'" data-v="Yes">Yes</button> <button class="btn alt sm" data-a="rsvp" data-id="'+g.id+'" data-v="No">No</button> <button class="btn alt sm" data-a="delg" data-id="'+g.id+'">Remove</button></span></li>'}).join("")+'</ul><p class="empty">Use Yes or No to record each guest\'s RSVP reply.</p>':'<p class="empty">No guests yet. Add your first guest above.</p>')}
+
+/* ---------- actions ---------- */
+$("view").onclick=async function(e){
+  var a=e.target.getAttribute("data-a");if(!a)return;var id=e.target.getAttribute("data-id");
+  try{
+    if(a==="mkev"){var n=$("en").value.trim(),l=$("el").value.trim();if(fail(chkText(n,"event name",3,60))||fail(chkDate($("ed").value,"event date",1))||fail(chkText(l,"location",2,50))||fail(chkNum($("eb").value,"total budget",1000,100000000)))return;await add("events",{name:n,type:$("et").value,date:$("ed").value,location:l,budget:Number($("eb").value)})}
+    else if(a==="rmev"){if(confirm("Delete this event and all its data?"))await reset()}
+    else if(a==="quote"){QV=VENDORS[+e.target.getAttribute("data-i")].name;$("dt").textContent="Request quotation: "+QV;$("qn").value="";$("dlg").showModal()}
+    else if(a==="addx"){var pl=$("xp").value,pd=$("xa").value||"0";if(fail(chkNum(pl,"planned amount",1,100000000))||fail(chkNum(pd,"paid amount",0,100000000)))return;if(Number(pd)>Number(pl)){toast("Paid amount cannot be more than planned amount");return}await add("expenses",{category:$("xc").value,planned:Number(pl),paid:Number(pd)})}
+    else if(a==="delx")await del("expenses",id);
+    else if(a==="addt"){var t=$("tn").value.trim(),dl=$("td").value,ev=C.events[0];if(fail(chkText(t,"task",3,80))||fail(chkDate(dl,"deadline",0)))return;if(dl&&ev&&ev.date&&dl>day(ev.date)){toast("Deadline cannot be after the event date");return}await add("tasks",{title:t,deadline:dl,done:0})}
+    else if(a==="delt")await del("tasks",id);
+    else if(a==="addg"){var g=$("gn").value.trim();if(fail(chkName(g,"guest name")))return;if(C.guests.some(function(x){return x.name.toLowerCase()===g.toLowerCase()})){toast("This guest is already in the list");return}await add("guests",{name:g,rsvp:"Pending"})}
+    else if(a==="rsvp")await upd("guests",id,{rsvp:e.target.getAttribute("data-v")});
+    else if(a==="delg")await del("guests",id)
+  }catch(x){toast(x.message)}};
+$("view").onchange=async function(e){if(e.target.getAttribute("data-a")==="tg"){try{await upd("tasks",e.target.getAttribute("data-id"),{done:e.target.checked?1:0})}catch(x){toast(x.message)}}};
+$("qc").onclick=function(){$("dlg").close()};
+$("qs").onclick=async function(){
+  if(!C.events[0]){$("dlg").close();toast("Create an event first");TAB="Dashboard";render();return}
+  var q=$("qn").value.trim();if(fail(chkText(q,"message",5,150)))return;if(C.quotes.some(function(x){return x.vendor===QV})){toast("You already sent a request to this vendor");return}
+  try{await add("quotes",{vendor:QV,message:q,status:"Sent"});$("dlg").close();toast("Quotation request sent")}catch(x){toast(x.message)}};
+
+/* ---------- start ---------- */
+(async function(){
+  try{var r=await fetch("/api/health");var j=await r.json();API=!!j.ok}catch(x){}
+  NAME=ls("ss_name");TK=ls("ss_tk");
+  if(API){try{VENDORS=await call("GET","/vendors")}catch(x){}}
+  else{try{Object.assign(C,JSON.parse(ls("ss_local")||"{}"))}catch(x){}}
+  if(NAME&&(!API||TK)){try{await sync()}catch(x){TK="";ls("ss_tk",null)}}
+  show()})();
+</script>
 </body>
 </html>
