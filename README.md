@@ -36,7 +36,6 @@ npm install
 npm run dev
 ```
 `.env` me `JWT_SECRET` me koi bhi lamba random text likho.
-Ye dikhna chahiye: `Backend running on http://localhost:5000`
 
 Terminal 2 (frontend):
 ```
